@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+// use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -11,12 +14,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getUserInfo()
     {
-        return [
-            'name'=>'Arben',
-            'surname'=>'Dedaj',
-            'age' => '24'
-        ];
+        return response(Auth::user(), 200);
+        
     }
 }

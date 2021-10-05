@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+// use Illuminate\Http\Response;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -33,8 +34,12 @@ class AuthController extends Controller
             'gender'=>$fields['gender'],            
         ]);
 
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+
         $response = [
-            'user'=>$user
+            'user'=>$user,
+            'token'=>$token,
         ];
 
         return response($response, 200);
@@ -62,10 +67,14 @@ class AuthController extends Controller
             ], 401);
         }
 
+
         $response = [
-            'username'=>$user->username,
-            'name'=>$user->name,
-            'email'=>$user->email,
+            // "user"=>[
+            //     'username'=>$user->username,
+            //     'name'=>$user->name,
+            //     'email'=>$user->email,
+            // ],
+            "message"=>"Sucess!",
         ];
 
         return response($response, 201);
@@ -76,13 +85,13 @@ class AuthController extends Controller
 
 
 
-    public function index()
+    public function logout(Request $request)
     {
-        return [
-            'name'=>'Arben',
-            'surname'=>'Dedaj',
-            'age' => '24'
-        ];
+        $request->user()->currentAccessToken()->delete();
+
+        return response([
+            'message'=>'Logged out!'
+        ], 401);
     }
-    //
+    
 }
