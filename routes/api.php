@@ -16,7 +16,8 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/register', [AuthController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+// Route::get('/register', [AuthController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -38,6 +39,42 @@ class AuthController extends Controller
 
         return response($response, 200);
     }
+    
+    public function login(Request $request){
+
+        $fields= $request->validate([
+            'username'=>'required|string|',
+            'password'=>'required|string|',
+        ]);
+
+        // $user = User::where('email'->);
+
+        $user = DB::table('users')
+                    ->select('username', 'email', 'name', 'password')
+                    ->where('email', $fields['username'])
+                    ->orWhere('username', $fields['username'])
+                    ->first();
+
+
+        if (!$user || !Hash::check($fields['password'], $user->password)){
+            return response([
+                'message'=>'Bad Credentials'
+            ], 401);
+        }
+
+        $response = [
+            'username'=>$user->username,
+            'name'=>$user->name,
+            'email'=>$user->email,
+        ];
+
+        return response($response, 201);
+
+       
+    }
+
+
+
 
     public function index()
     {
