@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
@@ -20,9 +19,8 @@ use App\Http\Controllers\UsersController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-// Route::get('/register', [AuthController::class, 'index']);
 
-
+// protected routes
 Route::group(['middleware'=>['auth:sanctum']], function(){
     
     Route::get('/user-info', [UsersController::class, 'getUserInfo']);

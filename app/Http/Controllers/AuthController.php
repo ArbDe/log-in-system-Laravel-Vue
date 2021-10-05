@@ -34,7 +34,7 @@ class AuthController extends Controller
             'gender'=>$fields['gender'],            
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken(env('APP_KEY'))->plainTextToken;
 
 
         $response = [
@@ -83,15 +83,13 @@ class AuthController extends Controller
     }
 
 
-
-
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response([
             'message'=>'Logged out!'
-        ], 401);
+        ], 200);
     }
     
 }
