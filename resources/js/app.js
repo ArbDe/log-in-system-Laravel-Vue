@@ -7,13 +7,8 @@ import router from '@/js/routes'
 
 
 Vue.use(BootstrapVue)
+new Vue({
+    router,
+    render: h => h(App)
+  }).$mount("#app");
 
-window.onload = function() {
-    const app = new Vue({
-        el: '#app',
-        router,
-        render: h => h(App)
-    });
-}
-
-export default app;
