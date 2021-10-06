@@ -91,5 +91,16 @@ class AuthController extends Controller
             'message'=>'Logged out!'
         ], 200);
     }
+
+    public function test(){
+        return [
+            'adad'=>'asdasd',
+            'adasd'=>'asdasd',
+            'adad'=>'asdasd',
+            'aadad'=>'asdasd',
+            'adsdad'=>'asdasd',
+            'adadsda'=>'asdasd',
+        ];
+    }
     
 }
