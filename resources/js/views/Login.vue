@@ -13,10 +13,10 @@
             >
               <b-form-input
                 id="input-1"
-                v-model="form.email"
+                v-model="form.username"
                 type="email"
                 placeholder="Enter email"
-                required
+                name="username"
               ></b-form-input>
             </b-form-group>
 
@@ -30,7 +30,7 @@
                 v-model="form.password"
                 type="password"
                 placeholder="Enter your Password"
-                required
+                name="password"
               ></b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
@@ -47,15 +47,31 @@ export default {
   data() {
     return {
       form: {
-        email: "",
         name: "",
+        username: "",
+        password: "",
       },
+      errors:{}
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+
+        console.log(this.form);
+
+       
+
+        axios.post('api/login', this.form)
+        .then(response =>{
+            console.log(response);
+        })
+        .catch(error => {
+            console.error('There was an error!', error.data.error);
+            
+        });
+        // console.log(this.form);
+
     },
     onReset(event) {
       event.preventDefault();

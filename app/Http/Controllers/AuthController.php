@@ -47,6 +47,8 @@ class AuthController extends Controller
     
     public function login(Request $request){
 
+        // dump($request);
+
         $fields= $request->validate([
             'username'=>'required|string|',
             'password'=>'required|string|',
@@ -63,7 +65,7 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($fields['password'], $user->password)){
             return response([
-                'message'=>'Bad Credentials'
+                'message'=>'Username or password incorrect!'
             ], 401);
         }
 
