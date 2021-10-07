@@ -11,7 +11,7 @@
                 v-model="form.name"
                 type="text"
                 placeholder="Enter name"
-                required
+                name="name"
               ></b-form-input>
             </b-form-group>
 
@@ -25,7 +25,7 @@
                 v-model="form.surname"
                 type="text"
                 placeholder="Enter surname"
-                required
+                name = "surname"
               ></b-form-input>
             </b-form-group>
 
@@ -35,7 +35,7 @@
                 v-model="form.email"
                 type="email"
                 placeholder="Enter email"
-                required
+                name="email"
               ></b-form-input>
             </b-form-group>
 
@@ -49,7 +49,7 @@
                 v-model="form.username"
                 type="text"
                 placeholder="Enter username"
-                required
+                name="username"
               ></b-form-input>
             </b-form-group>
 
@@ -57,20 +57,20 @@
               <label for="Date of Birth">Date of Birth</label>
               <b-form-datepicker
                 id="datepicker-placeholder"
+                v-model="form.dob"
                 placeholder="Choose a date"
                 locale="en"
+                name="dob"
               ></b-form-datepicker>
             </b-form-group>
 
             <b-form-group>
               <label for="Gender">Gender</label>
               <b-form-select
-                v-model="selected"
-                :options="options"
+                v-model="form.gender"
+                :options="gender"
+                name="gender"
               ></b-form-select>
-              <div class="mt-3">
-                Selected: <strong>{{ selected }}</strong>
-              </div>
             </b-form-group>
 
             <b-form-group id="pw" label="Your Password:" label-for="pw">
@@ -79,7 +79,17 @@
                 v-model="form.password"
                 type="password"
                 placeholder="Enter your Password"
-                required
+                name="password"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="cpw" label="Confirm passowrd:" label-for="cpw">
+              <b-form-input
+                id="cpw"
+                v-model="form.password_confirmation"
+                type="password"
+                placeholder="Confirm password "
+                name="password_confirmation"
               ></b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
@@ -95,24 +105,40 @@
 export default {
   data() {
     return {
-      value: "",
-      selected: null,
-      options: [
+        form: {
+          name: "",
+          surname:"",
+          email: "",
+          username: "",
+          dob: "",
+          gender: null,
+          password: "",
+          password_confirmation: "",
+        },
+        gender: [
         { value: null, text: "Pleas enter your gender" },
         { value: "Male", text: "Male" },
         { value: "Female", text: "Female" },
         { value: "Other", text: "Other" },
-      ],
-      form: {
-        email: "",
-        name: "",
-      },
+        ],
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      
+        console.log(this.form);
+
+       
+        axios.post('api/register', this.form)
+        .then(response =>{
+            console.log(response);
+        })
+        .catch(error => {
+            console.error('There was an error!', error.data.error);
+            
+        });
+
     },
     onReset(event) {
       event.preventDefault();
