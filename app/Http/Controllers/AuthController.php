@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use Illuminate\Http\Response;
 
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -59,9 +60,10 @@ class AuthController extends Controller
 
 
         if (!$user || !Hash::check($fields['password'], $user->password)){
-            return response([
-                'message'=>'Username or password incorrect!'
-            ], 401);
+           
+            throw ValidationException::withMessages([
+                'username' => ['The provided credentials are incorrect']
+            ]);
         }
 
         $token = $user->createToken(env('APP_KEY'))->plainTextToken;

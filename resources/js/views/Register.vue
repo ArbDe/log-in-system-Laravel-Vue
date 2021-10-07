@@ -150,7 +150,9 @@ export default {
        
         axios.post('api/register', this.form)
         .then(response =>{
-            console.log(response);
+            // console.log(response);
+            this.$router.push("/login");
+
         })
         .catch(errors => {
             this.errors = errors.response.data.errors
