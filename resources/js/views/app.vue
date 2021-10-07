@@ -1,35 +1,46 @@
 <template>
-    <div>
-        <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="#">
-                <router-link to="/">
-                    Home
-                </router-link>
-            </b-navbar-brand>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">
+        <router-link to="/"> Home </router-link>
+      </b-navbar-brand>
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-            <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav>
-                    <b-nav-item>
-                        <router-link to="/login">
-                            LogIn
-                        </router-link>
-                    </b-nav-item>
-                    <b-nav-item>
-                        <router-link to="/register">
-                            Register
-                        </router-link>
-                    </b-nav-item>
-                </b-navbar-nav>
-            </b-collapse>
-        </b-navbar>
-        <router-view></router-view>
-    </div>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item>
+            <router-link to="/login"> LogIn </router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <router-link to="/register"> Register </router-link>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style></style>
+<style>
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+a.nav-link {
+  text-decoration: none;
+}
+a {
+  font-weight: bold;
+  color: #fef9ef;
+}
+a:hover {
+  text-decoration: none;
+  transition: 0.2s;
+  color: #b6b1a8;
+}
+</style>
