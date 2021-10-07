@@ -34,12 +34,10 @@ class AuthController extends Controller
             'gender'=>$fields['gender'],            
         ]);
 
-        $token = $user->createToken(env('APP_KEY'))->plainTextToken;
 
 
         $response = [
             'user'=>$user,
-            'token'=>$token,
         ];
 
         return response($response, 200);
@@ -56,11 +54,8 @@ class AuthController extends Controller
 
         // $user = User::where('email'->);
 
-        $user = DB::table('users')
-                    ->select('username', 'email', 'name', 'password')
-                    ->where('email', $fields['username'])
-                    ->orWhere('username', $fields['username'])
-                    ->first();
+        $user = User::where('email', $fields['username'])
+                            ->orWhere('username', $fields['username'])->first();         
 
 
         if (!$user || !Hash::check($fields['password'], $user->password)){
@@ -69,18 +64,16 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $token = $user->createToken(env('APP_KEY'))->plainTextToken;
+
 
         $response = [
-            // "user"=>[
-            //     'username'=>$user->username,
-            //     'name'=>$user->name,
-            //     'email'=>$user->email,
-            // ],
+           
             "message"=>"Sucess!",
+            "token"=>$token
         ];
 
         return response($response, 201);
-
        
     }
 
