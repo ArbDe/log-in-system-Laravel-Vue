@@ -50,27 +50,25 @@ export default {
         username: "",
         password: "",
       },
-      errors:{}
+      errors: {},
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
 
-        console.log(this.form);
+      console.log(this.form);
 
-       
-
-        axios.post('api/login', this.form)
-        .then(response =>{
-            console.log(response);
+      axios
+        .post("api/login", this.form)
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/user");
         })
-        .catch(error => {
-            console.error('There was an error!', error.data.error);
-            
+        .catch((error) => {
+          console.error("There was an error!", error.data.error);
         });
-        // console.log(this.form);
-
+      // console.log(this.form);
     },
     onReset(event) {
       event.preventDefault();
