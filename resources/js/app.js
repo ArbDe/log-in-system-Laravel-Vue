@@ -4,11 +4,14 @@ import BootstrapVue from 'bootstrap-vue'
 import App from '@/js/views/App'
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import router from '@/js/routes'
-
+import store from '@/js/store'
+import Vuex from 'vuex'
 
 Vue.use(BootstrapVue)
+
 new Vue({
     router,
+    store,
     render: h => h(App)
   }).$mount("#app");
 // window.onload = function() {

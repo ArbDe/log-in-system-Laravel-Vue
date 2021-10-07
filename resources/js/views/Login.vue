@@ -64,12 +64,12 @@ export default {
 
       console.log(this.form);
 
-      axios
-        .post("api/login", this.form)
+      axios.post("api/login", this.form)
         .then((response) => {
         //   console.log(response);
           localStorage.setItem('token', response.data.token)
           this.$router.push("/user");
+          this.$store.commit('login');
         })
         .catch((errors) => {
           this.errors = errors.response.data.errors;

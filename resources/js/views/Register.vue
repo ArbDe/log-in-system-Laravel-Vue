@@ -153,6 +153,7 @@ export default {
             // console.log(response);
             this.$router.push("/login");
 
+
         })
         .catch(errors => {
             this.errors = errors.response.data.errors

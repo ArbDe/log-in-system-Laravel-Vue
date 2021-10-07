@@ -9,10 +9,10 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item>
+          <b-nav-item v-if="!userLoggedIn()">
             <router-link to="/login"> LogIn </router-link>
           </b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-if="!userLoggedIn()">
             <router-link to="/register"> Register </router-link>
           </b-nav-item>
         </b-navbar-nav>
@@ -25,6 +25,11 @@
 <script>
 export default {
   setup() {},
+  methods: {
+    userLoggedIn() {
+      return this.$store.state.userLoggedIn;  
+    }
+  }
 };
 </script>
 

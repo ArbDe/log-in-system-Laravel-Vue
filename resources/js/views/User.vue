@@ -16,10 +16,12 @@ export default {
   },
   methods:{
     logout(){
+      window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
       axios.post('api/logout').then((response)=>{
-        window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
         localStorage.removeItem('token');
-        this.$router.push('/')
+        this.$router.push('/');
+        this.$store.commit('logout');
+
       }).catch((errors)=>{
         console.log(errors)
       })
