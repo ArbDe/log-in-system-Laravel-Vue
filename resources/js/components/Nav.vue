@@ -15,6 +15,12 @@
           <b-nav-item v-if="!userLoggedIn()">
             <router-link to="/register"> Register </router-link>
           </b-nav-item>
+          <b-nav-item v-if="userLoggedIn()">
+            <router-link to="/user"> My profile </router-link>
+          </b-nav-item>
+          <b-nav-item v-if="userLoggedIn()"  @click="logout">
+            <router-link to="/"> Log out </router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -24,10 +30,26 @@
 
 <script>
 export default {
-  setup() {},
+  // setup() {},
+  data(){
+    return{
+      token: localStorage.getItem('token'),
+    }
+  },
   methods: {
     userLoggedIn() {
       return this.$store.state.userLoggedIn;  
+    },
+    logout(){
+      window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+      axios.post('api/logout').then((response)=>{
+        localStorage.removeItem('token');
+        this.$router.push('/');
+        this.$store.commit('logout');
+
+      }).catch((errors)=>{
+        console.log(errors)
+      })
     }
   }
 };

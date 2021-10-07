@@ -4,7 +4,8 @@ import Home from "./views/Home.vue";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import User from "./views/User";
-
+import store from "./store";
+import PageNotFound from "./views/PageNotFound"
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -27,8 +28,16 @@ const router = new VueRouter({
         {
             path: "/user",
             name: "user",
-            component: User
-        }
+            component: User,
+            beforeEnter:(to,from,next)=>{
+                if(store.state.userLoggedIn == false){
+                    next(false)
+                }else{
+                    next()
+                }
+            }
+        },
+        { path: "*", component: PageNotFound }
     ]
 });
 

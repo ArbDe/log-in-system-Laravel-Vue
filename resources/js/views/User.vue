@@ -1,7 +1,7 @@
 <template>
   <div class="tabelat">
     <b-table striped hover :items="[{  first_name: user.name, last_name: user.surname, email: user.email, user_name: user.username }]"></b-table>
-    <button class='btn btn-danger' @click="logout">logout</button>
+    <!-- <button class='btn btn-danger' @click="logout">logout</button> -->
   </div>
 </template>
 

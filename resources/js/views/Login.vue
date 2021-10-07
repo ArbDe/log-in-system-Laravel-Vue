@@ -68,8 +68,8 @@ export default {
         .then((response) => {
         //   console.log(response);
           localStorage.setItem('token', response.data.token)
-          this.$router.push("/user");
           this.$store.commit('login');
+          this.$router.push("/user");
         })
         .catch((errors) => {
           this.errors = errors.response.data.errors;
