@@ -16,7 +16,10 @@
                 type="text"
                 placeholder="Enter email or username"
                 name="username"
+
               ></b-form-input>
+            <p class="text-danger" v-text="errors.username"></p>
+
             </b-form-group>
 
             <b-form-group
@@ -31,6 +34,8 @@
                 placeholder="Enter your Password"
                 name="password"
               ></b-form-input>
+              <p class="text-danger" v-text="errors.password"></p>
+
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
           </b-form>
@@ -66,8 +71,8 @@ export default {
           localStorage.setItem('token', response.data.token)
           this.$router.push("/user");
         })
-        .catch((error) => {
-          console.error("There was an error!", error.data.error);
+        .catch((errors) => {
+          this.errors = errors.response.data.errors;
         });
       // console.log(this.form);
     },

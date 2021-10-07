@@ -13,6 +13,7 @@
                 placeholder="Enter name"
                 name="name"
               ></b-form-input>
+              <p class="text-danger" v-text="errors.name"></p>
             </b-form-group>
 
             <b-form-group
@@ -26,7 +27,10 @@
                 type="text"
                 placeholder="Enter surname"
                 name = "surname"
+                
               ></b-form-input>
+              <p class="text-danger" v-text="errors.surname"></p>
+
             </b-form-group>
 
             <b-form-group id="input-group-3" label="Email:" label-for="input-3">
@@ -37,6 +41,8 @@
                 placeholder="Enter email"
                 name="email"
               ></b-form-input>
+             <p class="text-danger" v-text="errors.email"></p>
+
             </b-form-group>
 
             <b-form-group
@@ -51,6 +57,8 @@
                 placeholder="Enter username"
                 name="username"
               ></b-form-input>
+              <p class="text-danger" v-text="errors.username"></p>
+
             </b-form-group>
 
             <b-form-group>
@@ -62,6 +70,8 @@
                 locale="en"
                 name="dob"
               ></b-form-datepicker>
+              <p class="text-danger" v-text="errors.dob"></p>
+
             </b-form-group>
 
             <b-form-group>
@@ -71,6 +81,8 @@
                 :options="gender"
                 name="gender"
               ></b-form-select>
+              <p class="text-danger" v-text="errors.gender"></p>
+
             </b-form-group>
 
             <b-form-group id="pw" label="Your Password:" label-for="pw">
@@ -80,7 +92,10 @@
                 type="password"
                 placeholder="Enter your Password"
                 name="password"
+                
               ></b-form-input>
+               <p class="text-danger" v-text="errors.password"></p>
+
             </b-form-group>
 
             <b-form-group id="cpw" label="Confirm passowrd:" label-for="cpw">
@@ -91,6 +106,8 @@
                 placeholder="Confirm password "
                 name="password_confirmation"
               ></b-form-input>
+             <p class="text-danger" v-text="errors.password_confirmation"></p>
+
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
           </b-form>
@@ -121,6 +138,7 @@ export default {
         { value: "Female", text: "Female" },
         { value: "Other", text: "Other" },
         ],
+        errors:{},
     };
   },
   methods: {
@@ -134,9 +152,8 @@ export default {
         .then(response =>{
             console.log(response);
         })
-        .catch(error => {
-            console.error('There was an error!', error.data.error);
-            
+        .catch(errors => {
+            this.errors = errors.response.data.errors
         });
 
     },
