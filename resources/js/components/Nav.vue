@@ -41,10 +41,9 @@ export default {
       return this.$store.state.userLoggedIn;  
     },
     logout(){
-      window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
       axios.post('api/logout').then((response)=>{
+        window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
         localStorage.removeItem('token');
-        this.$router.push('/');
         this.$store.commit('logout');
 
       }).catch((errors)=>{
